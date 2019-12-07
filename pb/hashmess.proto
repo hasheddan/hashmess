@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package hashmess;
+
+// ---- Comments Service ---- //
+
+service CommentsService {
+    rpc GetComments(CommentsRequest) returns (Comments) {}
+}
+
+message Comment {
+    string user = 1;
+    string message = 2;
+}
+
+message CommentsRequest {
+    string hash = 1;
+}
+
+message Comments {
+    repeated Comment comments = 1;
+}
