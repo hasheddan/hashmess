@@ -27,6 +27,9 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/prometheus/common/log"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/codes"
+	health "google.golang.org/grpc/health/grpc_health_v1"
+	"google.golang.org/grpc/status"
 
 	pb "github.com/hasheddan/hashmess/comments/genproto"
 )
@@ -66,8 +69,41 @@ func main() {
 	srv := grpc.NewServer()
 	log.Infof("starting comments service on tcp: %q", lis.Addr().String())
 	pb.RegisterCommentsServiceServer(srv, svc)
+	health.RegisterHealthServer(srv, svc)
 	err = srv.Serve(lis)
 	log.Fatal(err)
+}
+
+func (cs *commentsService) Check(ctx context.Context, req *health.HealthCheckRequest) (*health.HealthCheckResponse, error) {
+	return &health.HealthCheckResponse{Status: health.HealthCheckResponse_SERVING}, nil
+}
+
+func (cs *commentsService) Watch(in *health.HealthCheckRequest, stream health.Health_WatchServer) error {
+	// Create update channel for stream.
+	update := make(chan health.HealthCheckResponse_ServingStatus, 1)
+
+	// Write initial status to stream.
+	update <- health.HealthCheckResponse_SERVING
+
+	var lastSentStatus health.HealthCheckResponse_ServingStatus = -1
+	for {
+		select {
+		// Read status from channel.
+		case servingStatus := <-update:
+			// If status has not changed do not send to stream.
+			if lastSentStatus == servingStatus {
+				continue
+			}
+			lastSentStatus = servingStatus
+			err := stream.Send(&health.HealthCheckResponse{Status: servingStatus})
+			if err != nil {
+				return status.Error(codes.Canceled, "Stream has ended.")
+			}
+		// Stop polling if context is done.
+		case <-stream.Context().Done():
+			return status.Error(codes.Canceled, "Stream has ended.")
+		}
+	}
 }
 
 func (cs *commentsService) GetComments(ctx context.Context, req *pb.CommentsRequest) (*pb.Comments, error) {
