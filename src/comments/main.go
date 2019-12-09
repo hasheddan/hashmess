@@ -31,7 +31,7 @@ import (
 	health "google.golang.org/grpc/health/grpc_health_v1"
 	"google.golang.org/grpc/status"
 
-	pb "github.com/hasheddan/hashmess/comments/genproto"
+	pb "github.com/hasheddan/hashmess/src/comments/genproto"
 )
 
 const listenPort = "5050"
