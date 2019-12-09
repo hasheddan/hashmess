@@ -24,6 +24,92 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
+type AuthRequest struct {
+	Code                 string   `protobuf:"bytes,1,opt,name=code,proto3" json:"code,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *AuthRequest) Reset()         { *m = AuthRequest{} }
+func (m *AuthRequest) String() string { return proto.CompactTextString(m) }
+func (*AuthRequest) ProtoMessage()    {}
+func (*AuthRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_2d9672b0d27f527f, []int{0}
+}
+
+func (m *AuthRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AuthRequest.Unmarshal(m, b)
+}
+func (m *AuthRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AuthRequest.Marshal(b, m, deterministic)
+}
+func (m *AuthRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AuthRequest.Merge(m, src)
+}
+func (m *AuthRequest) XXX_Size() int {
+	return xxx_messageInfo_AuthRequest.Size(m)
+}
+func (m *AuthRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_AuthRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AuthRequest proto.InternalMessageInfo
+
+func (m *AuthRequest) GetCode() string {
+	if m != nil {
+		return m.Code
+	}
+	return ""
+}
+
+type AuthResponse struct {
+	Token                string   `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
+	Username             string   `protobuf:"bytes,2,opt,name=username,proto3" json:"username,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *AuthResponse) Reset()         { *m = AuthResponse{} }
+func (m *AuthResponse) String() string { return proto.CompactTextString(m) }
+func (*AuthResponse) ProtoMessage()    {}
+func (*AuthResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_2d9672b0d27f527f, []int{1}
+}
+
+func (m *AuthResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_AuthResponse.Unmarshal(m, b)
+}
+func (m *AuthResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_AuthResponse.Marshal(b, m, deterministic)
+}
+func (m *AuthResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_AuthResponse.Merge(m, src)
+}
+func (m *AuthResponse) XXX_Size() int {
+	return xxx_messageInfo_AuthResponse.Size(m)
+}
+func (m *AuthResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_AuthResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_AuthResponse proto.InternalMessageInfo
+
+func (m *AuthResponse) GetToken() string {
+	if m != nil {
+		return m.Token
+	}
+	return ""
+}
+
+func (m *AuthResponse) GetUsername() string {
+	if m != nil {
+		return m.Username
+	}
+	return ""
+}
+
 type Comment struct {
 	User                 string   `protobuf:"bytes,1,opt,name=user,proto3" json:"user,omitempty"`
 	Message              string   `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
@@ -36,7 +122,7 @@ func (m *Comment) Reset()         { *m = Comment{} }
 func (m *Comment) String() string { return proto.CompactTextString(m) }
 func (*Comment) ProtoMessage()    {}
 func (*Comment) Descriptor() ([]byte, []int) {
-	return fileDescriptor_2d9672b0d27f527f, []int{0}
+	return fileDescriptor_2d9672b0d27f527f, []int{2}
 }
 
 func (m *Comment) XXX_Unmarshal(b []byte) error {
@@ -82,7 +168,7 @@ func (m *CommentsRequest) Reset()         { *m = CommentsRequest{} }
 func (m *CommentsRequest) String() string { return proto.CompactTextString(m) }
 func (*CommentsRequest) ProtoMessage()    {}
 func (*CommentsRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_2d9672b0d27f527f, []int{1}
+	return fileDescriptor_2d9672b0d27f527f, []int{3}
 }
 
 func (m *CommentsRequest) XXX_Unmarshal(b []byte) error {
@@ -121,7 +207,7 @@ func (m *Comments) Reset()         { *m = Comments{} }
 func (m *Comments) String() string { return proto.CompactTextString(m) }
 func (*Comments) ProtoMessage()    {}
 func (*Comments) Descriptor() ([]byte, []int) {
-	return fileDescriptor_2d9672b0d27f527f, []int{2}
+	return fileDescriptor_2d9672b0d27f527f, []int{4}
 }
 
 func (m *Comments) XXX_Unmarshal(b []byte) error {
@@ -150,6 +236,8 @@ func (m *Comments) GetComments() []*Comment {
 }
 
 func init() {
+	proto.RegisterType((*AuthRequest)(nil), "hashmess.AuthRequest")
+	proto.RegisterType((*AuthResponse)(nil), "hashmess.AuthResponse")
 	proto.RegisterType((*Comment)(nil), "hashmess.Comment")
 	proto.RegisterType((*CommentsRequest)(nil), "hashmess.CommentsRequest")
 	proto.RegisterType((*Comments)(nil), "hashmess.Comments")
@@ -158,18 +246,23 @@ func init() {
 func init() { proto.RegisterFile("hashmess.proto", fileDescriptor_2d9672b0d27f527f) }
 
 var fileDescriptor_2d9672b0d27f527f = []byte{
-	// 173 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0xe2, 0xcb, 0x48, 0x2c, 0xce,
-	0xc8, 0x4d, 0x2d, 0x2e, 0xd6, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0xe2, 0x80, 0xf1, 0x95, 0xcc,
-	0xb9, 0xd8, 0x9d, 0xf3, 0x73, 0x73, 0x53, 0xf3, 0x4a, 0x84, 0x84, 0xb8, 0x58, 0x4a, 0x8b, 0x53,
-	0x8b, 0x24, 0x18, 0x15, 0x18, 0x35, 0x38, 0x83, 0xc0, 0x6c, 0x21, 0x09, 0x2e, 0x76, 0x90, 0xb2,
-	0xc4, 0xf4, 0x54, 0x09, 0x26, 0xb0, 0x30, 0x8c, 0xab, 0xa4, 0xca, 0xc5, 0x0f, 0xd5, 0x58, 0x1c,
-	0x94, 0x5a, 0x58, 0x9a, 0x5a, 0x0c, 0x36, 0x00, 0x64, 0x2e, 0xcc, 0x00, 0x10, 0x5b, 0xc9, 0x92,
-	0x8b, 0x03, 0xa6, 0x4c, 0x48, 0x97, 0x8b, 0x23, 0x19, 0xca, 0x96, 0x60, 0x54, 0x60, 0xd6, 0xe0,
-	0x36, 0x12, 0xd4, 0x83, 0x3b, 0x0c, 0xaa, 0x2a, 0x08, 0xae, 0xc4, 0x28, 0x10, 0x61, 0x43, 0x70,
-	0x6a, 0x51, 0x59, 0x66, 0x72, 0xaa, 0x90, 0x1d, 0x17, 0xb7, 0x7b, 0x6a, 0x09, 0xdc, 0x40, 0x49,
-	0x0c, 0xed, 0x30, 0xb7, 0x48, 0x09, 0x61, 0x4a, 0x29, 0x31, 0x24, 0xb1, 0x81, 0xbd, 0x6f, 0x0c,
-	0x08, 0x00, 0x00, 0xff, 0xff, 0x2a, 0x9b, 0x89, 0xe1, 0x10, 0x01, 0x00, 0x00,
+	// 256 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x64, 0x51, 0x4d, 0x4f, 0xc3, 0x30,
+	0x0c, 0x5d, 0xf9, 0x5a, 0x71, 0x11, 0x08, 0x0b, 0x50, 0xe9, 0x69, 0x44, 0x42, 0xda, 0x85, 0x1d,
+	0xca, 0x01, 0x71, 0xe1, 0x43, 0x1c, 0xb8, 0x21, 0x51, 0x7e, 0x41, 0x29, 0x16, 0x9d, 0x50, 0x93,
+	0x51, 0xa7, 0xfc, 0x7e, 0x94, 0xa6, 0xce, 0xa6, 0xf5, 0xf6, 0x5e, 0xfc, 0x6c, 0xbf, 0xe7, 0xc0,
+	0x71, 0x5d, 0x72, 0xdd, 0x10, 0xf3, 0x62, 0xd5, 0x1a, 0x6b, 0x30, 0x16, 0xae, 0xae, 0x20, 0x79,
+	0xee, 0x6c, 0x5d, 0xd0, 0x6f, 0x47, 0x6c, 0x11, 0x61, 0xaf, 0x32, 0x5f, 0x94, 0x46, 0xb3, 0x68,
+	0x7e, 0x58, 0xf4, 0x58, 0x3d, 0xc1, 0x91, 0x97, 0xf0, 0xca, 0x68, 0x26, 0x3c, 0x83, 0x7d, 0x6b,
+	0x7e, 0x48, 0x0f, 0x22, 0x4f, 0x30, 0x83, 0xb8, 0x63, 0x6a, 0x75, 0xd9, 0x50, 0xba, 0xd3, 0x17,
+	0x02, 0x57, 0x77, 0x30, 0x7d, 0x31, 0x4d, 0x43, 0xba, 0x5f, 0xe0, 0x9e, 0x65, 0x81, 0xc3, 0x98,
+	0xc2, 0xd4, 0x79, 0x29, 0xbf, 0xa5, 0x53, 0xa8, 0xba, 0x86, 0x93, 0xa1, 0x91, 0x37, 0x1c, 0x3a,
+	0xf3, 0x32, 0xc0, 0x61, 0x75, 0x0f, 0xb1, 0xc8, 0xf0, 0x06, 0xe2, 0x6a, 0xc0, 0x69, 0x34, 0xdb,
+	0x9d, 0x27, 0xf9, 0xe9, 0x22, 0xa4, 0x1f, 0x54, 0x45, 0x90, 0xe4, 0x6f, 0x3e, 0xff, 0x07, 0xb5,
+	0x7f, 0xcb, 0x8a, 0xf0, 0xd1, 0x67, 0x25, 0x6d, 0x97, 0x55, 0x69, 0x09, 0xcf, 0xd7, 0xbd, 0x1b,
+	0x67, 0xca, 0x2e, 0xb6, 0x9f, 0xfd, 0x69, 0xd4, 0x24, 0x7f, 0x5f, 0x3b, 0x96, 0x99, 0x0f, 0x90,
+	0xbc, 0x92, 0x0d, 0x06, 0x2f, 0x47, 0x76, 0x24, 0x5b, 0x86, 0xe3, 0x92, 0x9a, 0x7c, 0x1e, 0xf4,
+	0x7f, 0x76, 0xfb, 0x1f, 0x00, 0x00, 0xff, 0xff, 0x3f, 0xeb, 0xc3, 0x4b, 0xc5, 0x01, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -179,6 +272,78 @@ var _ grpc.ClientConn
 // This is a compile-time assertion to ensure that this generated file
 // is compatible with the grpc package it is being compiled against.
 const _ = grpc.SupportPackageIsVersion4
+
+// AuthServiceClient is the client API for AuthService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
+type AuthServiceClient interface {
+	Authenticate(ctx context.Context, in *AuthRequest, opts ...grpc.CallOption) (*AuthResponse, error)
+}
+
+type authServiceClient struct {
+	cc *grpc.ClientConn
+}
+
+func NewAuthServiceClient(cc *grpc.ClientConn) AuthServiceClient {
+	return &authServiceClient{cc}
+}
+
+func (c *authServiceClient) Authenticate(ctx context.Context, in *AuthRequest, opts ...grpc.CallOption) (*AuthResponse, error) {
+	out := new(AuthResponse)
+	err := c.cc.Invoke(ctx, "/hashmess.AuthService/Authenticate", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// AuthServiceServer is the server API for AuthService service.
+type AuthServiceServer interface {
+	Authenticate(context.Context, *AuthRequest) (*AuthResponse, error)
+}
+
+// UnimplementedAuthServiceServer can be embedded to have forward compatible implementations.
+type UnimplementedAuthServiceServer struct {
+}
+
+func (*UnimplementedAuthServiceServer) Authenticate(ctx context.Context, req *AuthRequest) (*AuthResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Authenticate not implemented")
+}
+
+func RegisterAuthServiceServer(s *grpc.Server, srv AuthServiceServer) {
+	s.RegisterService(&_AuthService_serviceDesc, srv)
+}
+
+func _AuthService_Authenticate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AuthRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AuthServiceServer).Authenticate(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/hashmess.AuthService/Authenticate",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AuthServiceServer).Authenticate(ctx, req.(*AuthRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _AuthService_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "hashmess.AuthService",
+	HandlerType: (*AuthServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "Authenticate",
+			Handler:    _AuthService_Authenticate_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "hashmess.proto",
+}
 
 // CommentsServiceClient is the client API for CommentsService service.
 //

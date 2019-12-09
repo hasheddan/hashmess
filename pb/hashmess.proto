@@ -2,6 +2,21 @@ syntax = "proto3";
 
 package hashmess;
 
+// ---- Auth Service ---- //
+
+service AuthService {
+    rpc Authenticate(AuthRequest) returns (AuthResponse) {}
+}
+
+message AuthRequest {
+    string code = 1;
+}
+
+message AuthResponse {
+    string token = 1;
+    string username = 2;
+}
+
 // ---- Comments Service ---- //
 
 service CommentsService {
